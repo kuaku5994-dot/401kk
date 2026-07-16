@@ -1,0 +1,39 @@
+{
+  "users": {
+    "A001": {
+      "name": "张三",
+      "balance": 1000980,
+      "note": "第一批用户"
+    },
+    "A002": {
+      "name": "李四",
+      "balance": 2500,
+      "note": "VIP用户"
+    },
+    "zhangsan": {
+      "name": "张三丰",
+      "balance": 680,
+      "note": ""
+    },
+    "lisi": {
+      "name": "李思思",
+      "balance": 4200,
+      "note": "推荐用户"
+    },
+    "wangwu": {
+      "name": "王五",
+      "balance": 15000,
+      "note": "大客户"
+    },
+    "test": {
+      "name": "测试用户",
+      "balance": 99.99,
+      "note": "仅测试"
+    }
+  },
+  "config": {
+    "apy": 0.165,
+    "lockYears": "5 / 10",
+    "projectName": "TON401k"
+  }
+}
