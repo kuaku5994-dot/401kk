@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TON401k · 查余额</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0b0e14;
+            color: #e8edf5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 24px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #0088cc, #00a6ff);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .brand-name span {
+            color: #00a6ff;
+        }
+        .brand-sub {
+            font-size: 13px;
+            color: #8899b0;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 24px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .input-section label {
+            font-size: 14px;
+            color: #8899b0;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
+            color: #e8edf5;
+            font-size: 16px;
+            outline: none;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-row input::placeholder {
+            color: #4a5a72;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .input-row input:focus {
+            border-color: #00a6ff;
+            background: rgba(0, 166, 255, 0.06);
+        }
+
+        .input-row button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #0088cc, #00a6ff);
+            border: none;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .input-row button:active {
+            transform: scale(0.96);
+        }
+
+        .error-msg {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #ff6b6b;
+            min-height: 20px;
+        }
+
+        .result-section {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result-section.visible {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #6a7b94;
+        }
+
+        .user-info .id {
+            color: #4fc3ff;
+            font-weight: 600;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        .user-info .name {
+            color: #b0c4dd;
+        }
+
+        .hero-card {
+            background: linear-gradient(145deg, #131a24, #0f151e);
+            border-radius: 28px;
+            padding: 28px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-label {
+            font-size: 13px;
+            color: #8899b0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-balance {
+            font-size: 44px;
+            font-weight: 700;
+            margin: 6px 0 4px;
+        }
+
+        .hero-balance small {
+            font-size: 20px;
+            font-weight: 400;
+            color: #8899b0;
+            margin-left: 4px;
+        }
+
+        .hero-row {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .hero-stat {
+            text-align: center;
+            flex: 1;
+        }
+
+        .hero-stat .number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #4fc3ff;
+        }
+
+        .hero-stat .number.green {
+            color: #4cdf8b;
+        }
+
+        .hero-stat .number.gold {
+            color: #f5b84c;
+        }
+
+        .hero-stat .label {
+            font-size: 12px;
+            color: #6a7b94;
+            margin-top: 4px;
+        }
+
+        .intro-section {
+            margin-top: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .intro-section .title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .intro-section .desc {
+            font-size: 14px;
+            color: #8899b0;
+            line-height: 1.6;
+        }
+
+        .intro-section .desc strong {
+            color: #b0c4dd;
+        }
+
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #3a4a62;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 20px;
+        }
+
+        .quick-links {
+            margin-top: 14px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .quick-links button {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #6a7b94;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quick-links button:hover {
+            background: rgba(0, 166, 255, 0.1);
+            color: #4fc3ff;
+        }
+
+        .data-status {
+            margin-top: 10px;
+            font-size: 11px;
+            color: #3a4a62;
+            text-align: center;
+        }
+        .data-status .ok {
+            color: #4cdf8b;
+        }
+        .data-status .fail {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <div class="brand-header">
+            <div class="brand-icon">T</div>
+            <div>
+                <div class="brand-name">TON<span>401k</span></div>
+                <div class="brand-sub">链上退休储蓄 · USDT 收益金库</div>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label>🔑 请输入你的账户 ID</label>
+            <div class="input-row">
+                <input type="text" id="userIdInput" placeholder="例如: A001" maxlength="20" autofocus />
+                <button id="checkBtn">查询</button>
+            </div>
+            <div class="error-msg" id="errorMsg"></div>
+
+            <div class="quick-links" id="quickLinks">
+                <!-- 由 JS 生成 -->
+            </div>
+
+            <div class="data-status">
+                数据状态: <span class="ok" id="dataStatusText">✅ 已就绪</span>
+            </div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="user-info">
+                <span>👤 <span class="name" id="userName">用户</span></span>
+                <span>ID: <span class="id" id="userIdDisplay">-</span></span>
+            </div>
+
+            <div class="hero-card">
+                <div class="hero-label">📊 当前总资产 (USDT)</div>
+                <div class="hero-balance" id="balanceDisplay">0.00 <small>USDT</small></div>
+
+                <div class="hero-row">
+                    <div class="hero-stat">
+                        <div class="number green" id="profitDisplay">+0.00</div>
+                        <div class="label">📈 预期年化收益</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number" id="apyDisplay">16.5%</div>
+                        <div class="label">🏦 参考 APY</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="number gold" id="lockDisplay">5 / 10 年</div>
+                        <div class="label">🔒 锁仓期限</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="title">🏦 关于 TON401k</div>
+            <div class="desc">
+                基于 TON 区块链的去中心化退休储蓄协议。
+                通过智能合约自动复利增值，预期年化收益 <strong>16.5%</strong>。
+            </div>
+        </div>
+
+        <div class="footer">
+            ⚡ 基于 TON Blockchain · 历史收益不代表未来表现
+        </div>
+
+    </div>
+
+    <script>
+        // ================================================================
+        // ★★★ 用户数据在这里修改 ★★★
+        // ================================================================
+        const USER_DATA = {
+            // ---- 示例用户（你可以随意增删改） ----
+            "A001": { name: "张三", balance: 1000 },
+            "A002": { name: "李四", balance: 2500 },
+            "zhangsan": { name: "张三丰", balance: 680 },
+            "lisi": { name: "李思思", balance: 4200 },
+            "wangwu": { name: "王五", balance: 15000 },
+            "test": { name: "测试用户", balance: 99.99 },
+            // ---- 在这里继续添加更多用户 ----
+            // "你的用户ID": { name: "显示名字", balance: 金额 },
+        };
+
+        // 年化收益率（可调整）
+        const APY = 0.165;
+
+        // ================================================================
+        // 以下代码不需要修改
+        // ================================================================
+
+        const userIdInput = document.getElementById('userIdInput');
+        const checkBtn = document.getElementById('checkBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const resultSection = document.getElementById('resultSection');
+        const userName = document.getElementById('userName');
+        const userIdDisplay = document.getElementById('userIdDisplay');
+        const balanceDisplay = document.getElementById('balanceDisplay');
+        const profitDisplay = document.getElementById('profitDisplay');
+        const apyDisplay = document.getElementById('apyDisplay');
+        const lockDisplay = document.getElementById('lockDisplay');
+        const dataStatusText = document.getElementById('dataStatusText');
+        const quickLinks = document.getElementById('quickLinks');
+
+        // 应用配置
+        apyDisplay.textContent = (APY * 100).toFixed(1) + '%';
+
+        // 生成快捷按钮（只显示前 6 个）
+        function generateQuickLinks() {
+            const ids = Object.keys(USER_DATA);
+            const showIds = ids.slice(0, 6);
+            quickLinks.innerHTML = '';
+            showIds.forEach(id => {
+                const btn = document.createElement('button');
+                btn.textContent = id;
+                btn.onclick = function() {
+                    userIdInput.value = id;
+                    checkUser(id);
+                };
+                quickLinks.appendChild(btn);
+            });
+            if (ids.length > 6) {
+                const more = document.createElement('span');
+                more.textContent = '+' + (ids.length - 6) + ' 更多';
+                more.style.cssText = 'font-size:12px;color:#4a5a72;padding:4px 8px;';
+                quickLinks.appendChild(more);
+            }
+        }
+        generateQuickLinks();
+
+        // 查询用户
+        function checkUser(id) {
+            const trimmedId = id.trim().toUpperCase();
+            errorMsg.textContent = '';
+
+            if (!trimmedId) {
+                errorMsg.textContent = '⚠️ 请输入 ID';
+                resultSection.classList.remove('visible');
+                return;
+            }
+
+            const user = USER_DATA[trimmedId];
+
+            if (!user) {
+                errorMsg.textContent = '❌ 未找到该 ID，请确认后重试';
+                resultSection.classList.remove('visible');
+                return;
+            }
+
+            userName.textContent = user.name || '用户';
+            userIdDisplay.textContent = trimmedId;
+
+            const balance = user.balance || 0;
+            balanceDisplay.innerHTML = balance.toFixed(2) + ' <small>USDT</small>';
+
+            const profit = balance * APY;
+            profitDisplay.textContent = '+ ' + profit.toFixed(2);
+
+            resultSection.classList.add('visible');
+        }
+
+        // 绑定事件
+        checkBtn.addEventListener('click', function() {
+            checkUser(userIdInput.value);
+        });
+
+        userIdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                checkUser(userIdInput.value);
+            }
+        });
+
+        // URL 参数自动查询
+        const urlParams = new URLSearchParams(window.location.search);
+        const autoId = urlParams.get('id');
+        if (autoId) {
+            userIdInput.value = autoId;
+            checkUser(autoId);
+        }
+
+        userIdInput.focus();
+
+        // 暴露到控制台
+        console.log('💡 用户数据:', USER_DATA);
+        console.log('💡 修改余额: USER_DATA["A001"].balance = 9999');
+        console.log('💡 添加用户: USER_DATA["新ID"] = { name: "名字", balance: 金额 }');
+    </script>
+
+</body>
+</html>
