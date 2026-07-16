@@ -264,6 +264,51 @@
       margin-top: 4px;
     }
 
+    .profit-info {
+      margin-top: 16px;
+      padding: 16px 18px;
+      background: rgba(0, 166, 255, 0.04);
+      border-radius: 14px;
+      border: 1px solid rgba(0, 166, 255, 0.08);
+    }
+
+    .profit-info .title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4fc3ff;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .profit-info .item {
+      font-size: 13px;
+      color: #8899b0;
+      line-height: 1.7;
+      padding: 3px 0;
+    }
+
+    .profit-info .item strong {
+      color: #e8edf5;
+    }
+
+    .profit-info .highlight {
+      color: #4cdf8b;
+      font-weight: 600;
+    }
+
+    .profit-info .divider {
+      margin: 8px 0 4px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 8px;
+    }
+
+    .profit-info .item-small {
+      font-size: 12px;
+      color: #6a7b94;
+      line-height: 1.6;
+      padding: 2px 0;
+    }
+
     .intro-section {
       margin-top: 24px;
       background: rgba(255, 255, 255, 0.02);
@@ -296,44 +341,6 @@
       border-top: 1px solid rgba(255, 255, 255, 0.04);
       padding-top: 20px;
     }
-
-    .quick-links {
-      margin-top: 14px;
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .quick-links button {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      color: #6a7b94;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .quick-links button:hover {
-      background: rgba(0, 166, 255, 0.1);
-      color: #4fc3ff;
-    }
-
-    .data-status {
-      margin-top: 10px;
-      font-size: 11px;
-      color: #3a4a62;
-      text-align: center;
-    }
-
-    .data-status .ok {
-      color: #4cdf8b;
-    }
-    .data-status .fail {
-      color: #ff6b6b;
-    }
   </style>
 </head>
 <body>
@@ -351,7 +358,7 @@
   <div class="input-section">
     <label>🔑 请输入你的账户 ID</label>
     <div class="input-row">
-      <input type="text" id="userIdInput" placeholder="例如: A001" maxlength="20" autofocus />
+      <input type="text" id="userIdInput" placeholder="" maxlength="20" autofocus />
       <button id="checkBtn">查询</button>
     </div>
     <div class="error-msg" id="errorMsg"></div>
@@ -359,11 +366,14 @@
       <span class="spinner"></span> 正在加载数据...
     </div>
 
-    <div class="quick-links" id="quickLinks">
-    </div>
-
-    <div class="data-status" id="dataStatus">
-      数据状态: <span class="fail" id="dataStatusText">未加载</span>
+    <div class="profit-info" id="profitInfo">
+      <div class="title">收益说明</div>
+      <div class="item"><strong>年化收益 17%</strong> · 每日复利滚存，收益自动加入本金</div>
+      <div class="item"><strong>锁仓 5/10 年</strong> · 强制储蓄，提前取出将收取罚金</div>
+      <div class="item">收益来源：USDT 存入 <strong>Telegram 官方收益金库</strong>，参与链上借贷与流动性策略</div>
+      <div class="item">资金由 <strong>智能合约</strong> 托管，非托管设计，任何第三方无法挪用</div>
+      <div class="divider"></div>
+      <div class="item-small">历史收益不代表未来表现，DeFi 存在智能合约及市场风险</div>
     </div>
   </div>
 
@@ -398,7 +408,7 @@
     <div class="title">🏦 关于 <span id="introProjectName">TON401k</span></div>
     <div class="desc">
       基于 TON 区块链的去中心化退休储蓄协议。
-      通过智能合约自动复利增值，预期年化收益 <strong id="introApy">15% – 18%</strong>。
+      通过智能合约自动复利增值，预期年化收益 <strong id="introApy">17%</strong>。
     </div>
   </div>
 
@@ -409,55 +419,41 @@
 </div>
 
 <script>
-  // ================================================================
-  // 配置：数据文件路径（如果和 HTML 在同一目录，直接写文件名即可）
-  // ================================================================
-  const DATA_URL = 'data.json';
+  var DATA_URL = 'data.json';
 
-  // ================================================================
-  // 全局变量
-  // ================================================================
-  let userData = null;
-  let config = null;
-  let dataLoaded = false;
+  var userData = null;
+  var config = null;
+  var dataLoaded = false;
 
-  // DOM 引用
-  const userIdInput = document.getElementById('userIdInput');
-  const checkBtn = document.getElementById('checkBtn');
-  const errorMsg = document.getElementById('errorMsg');
-  const loadingMsg = document.getElementById('loadingMsg');
-  const resultSection = document.getElementById('resultSection');
-  const userName = document.getElementById('userName');
-  const userIdDisplay = document.getElementById('userIdDisplay');
-  const balanceDisplay = document.getElementById('balanceDisplay');
-  const profitDisplay = document.getElementById('profitDisplay');
-  const apyDisplay = document.getElementById('apyDisplay');
-  const lockDisplay = document.getElementById('lockDisplay');
-  const projectName = document.getElementById('projectName');
-  const introProjectName = document.getElementById('introProjectName');
-  const introApy = document.getElementById('introApy');
-  const dataStatusText = document.getElementById('dataStatusText');
-  const quickLinks = document.getElementById('quickLinks');
+  var userIdInput = document.getElementById('userIdInput');
+  var checkBtn = document.getElementById('checkBtn');
+  var errorMsg = document.getElementById('errorMsg');
+  var loadingMsg = document.getElementById('loadingMsg');
+  var resultSection = document.getElementById('resultSection');
+  var userName = document.getElementById('userName');
+  var userIdDisplay = document.getElementById('userIdDisplay');
+  var balanceDisplay = document.getElementById('balanceDisplay');
+  var profitDisplay = document.getElementById('profitDisplay');
+  var apyDisplay = document.getElementById('apyDisplay');
+  var lockDisplay = document.getElementById('lockDisplay');
+  var projectName = document.getElementById('projectName');
+  var introProjectName = document.getElementById('introProjectName');
+  var introApy = document.getElementById('introApy');
 
-  // ================================================================
-  // 加载数据
-  // ================================================================
   async function loadData() {
     loadingMsg.style.display = 'flex';
-    dataStatusText.textContent = '加载中...';
-    dataStatusText.className = '';
 
     try {
-      const response = await fetch(DATA_URL + '?t=' + Date.now());
+      var response = await fetch(DATA_URL + '?t=' + Date.now());
 
       if (!response.ok) {
-        throw new Error('HTTP ' + response.status + ': ' + response.statusText);
+        throw new Error('HTTP ' + response.status);
       }
 
-      const json = await response.json();
+      var json = await response.json();
 
       if (!json.users || typeof json.users !== 'object') {
-        throw new Error('数据格式错误: 缺少 users 字段');
+        throw new Error('数据格式错误');
       }
 
       userData = json.users;
@@ -466,27 +462,17 @@
       applyConfig(config);
 
       dataLoaded = true;
-      dataStatusText.textContent = '✅ 已加载 (' + Object.keys(userData).length + ' 个用户)';
-      dataStatusText.className = 'ok';
-
-      generateQuickLinks();
-
       loadingMsg.style.display = 'none';
       return true;
 
     } catch (error) {
       console.error('加载数据失败:', error);
-      dataStatusText.textContent = '❌ 加载失败: ' + error.message;
-      dataStatusText.className = 'fail';
       loadingMsg.style.display = 'none';
       checkBtn.disabled = true;
       return false;
     }
   }
 
-  // ================================================================
-  // 应用配置
-  // ================================================================
   function applyConfig(config) {
     if (config.apy) {
       var percent = (config.apy * 100).toFixed(0);
@@ -504,46 +490,12 @@
     }
   }
 
-  // ================================================================
-  // 生成快捷按钮
-  // ================================================================
-  function generateQuickLinks() {
-    if (!userData) return;
-
-    var ids = Object.keys(userData);
-    var showIds = ids.slice(0, 6);
-
-    quickLinks.innerHTML = '';
-    for (var i = 0; i < showIds.length; i++) {
-      var id = showIds[i];
-      var btn = document.createElement('button');
-      btn.textContent = id;
-      btn.onclick = (function(id) {
-        return function() {
-          userIdInput.value = id;
-          checkUser(id);
-        };
-      })(id);
-      quickLinks.appendChild(btn);
-    }
-
-    if (ids.length > 6) {
-      var more = document.createElement('span');
-      more.textContent = '+' + (ids.length - 6) + ' 更多';
-      more.style.cssText = 'font-size:12px;color:#4a5a72;padding:4px 8px;';
-      quickLinks.appendChild(more);
-    }
-  }
-
-  // ================================================================
-  // 查询用户
-  // ================================================================
   function checkUser(id) {
     var trimmedId = id.trim().toUpperCase();
     errorMsg.textContent = '';
 
     if (!dataLoaded) {
-      errorMsg.textContent = '⏳ 数据还在加载中，请稍后...';
+      errorMsg.textContent = '⏳ 数据加载中，请稍后...';
       return;
     }
 
@@ -575,9 +527,6 @@
     errorMsg.textContent = '';
   }
 
-  // ================================================================
-  // 绑定事件
-  // ================================================================
   checkBtn.addEventListener('click', function() {
     checkUser(userIdInput.value);
   });
@@ -590,28 +539,19 @@
 
   userIdInput.focus();
 
-  // ================================================================
-  // URL 参数自动查询
-  // ================================================================
   var urlParams = new URLSearchParams(window.location.search);
   var autoId = urlParams.get('id');
 
-  // ================================================================
-  // 启动
-  // ================================================================
   (async function init() {
     await loadData();
-
     if (autoId && dataLoaded) {
       userIdInput.value = autoId;
       checkUser(autoId);
     }
   })();
 
-  console.log('💡 使用方法:');
-  console.log('  - 查看所有用户数据: userData');
-  console.log('  - 修改用户余额: userData["A001"].balance = 9999');
-  console.log('  - 添加用户: userData["新ID"] = { name: "名字", balance: 金额 }');
+  console.log('💡 查看所有用户: userData');
+  console.log('💡 修改余额: userData["A001"].balance = 9999');
 </script>
 
 </body>
