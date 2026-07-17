@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>管理员 · 验证</title>
+  <title>管理员 · 用户管理</title>
   <style>
     * {
       margin: 0;
@@ -18,8 +18,7 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding: 20px;
+      padding: 20px 16px 40px;
     }
 
     .container {
@@ -35,167 +34,75 @@
       padding: 36px 28px;
       border: 1px solid rgba(255, 255, 255, 0.06);
       text-align: center;
-      margin-top: 60px;
+      margin: 60px auto 0;
     }
 
-    .login-box .icon {
-      font-size: 48px;
-      margin-bottom: 8px;
-    }
-
-    .login-box h2 {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .login-box .sub {
-      font-size: 14px;
-      color: #6a7b94;
-      margin-bottom: 20px;
-    }
-
+    .login-box .icon { font-size: 48px; margin-bottom: 8px; }
+    .login-box h2 { font-size: 20px; margin-bottom: 4px; }
+    .login-box .sub { font-size: 14px; color: #6a7b94; margin-bottom: 20px; }
     .login-box input {
-      width: 100%;
-      padding: 14px 16px;
-      border-radius: 14px;
+      width: 100%; padding: 14px 16px; border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.04);
-      color: #e8edf5;
-      font-size: 16px;
-      outline: none;
-      transition: 0.2s;
-      margin-bottom: 14px;
-      text-align: center;
-      letter-spacing: 2px;
+      color: #e8edf5; font-size: 16px; outline: none;
+      margin-bottom: 14px; text-align: center; letter-spacing: 2px;
     }
-
-    .login-box input:focus {
-      border-color: #00a6ff;
-      background: rgba(0, 166, 255, 0.06);
-    }
-
+    .login-box input:focus { border-color: #00a6ff; background: rgba(0, 166, 255, 0.06); }
     .login-box button {
-      width: 100%;
-      padding: 14px;
+      width: 100%; padding: 14px;
       background: linear-gradient(135deg, #0088cc, #00a6ff);
-      border: none;
-      border-radius: 14px;
-      font-weight: 600;
-      font-size: 16px;
-      color: #fff;
-      cursor: pointer;
-      transition: 0.2s;
+      border: none; border-radius: 14px;
+      font-weight: 600; font-size: 16px; color: #fff; cursor: pointer;
     }
-
-    .login-box button:active {
-      transform: scale(0.96);
-    }
-
-    .login-box .error {
-      font-size: 14px;
-      color: #ff6b6b;
-      margin-top: 12px;
-      min-height: 20px;
-    }
-
-    .login-box .hint {
-      font-size: 12px;
-      color: #3a4a62;
-      margin-top: 16px;
-    }
+    .login-box button:active { transform: scale(0.96); }
+    .login-box .error { font-size: 14px; color: #ff6b6b; margin-top: 12px; min-height: 20px; }
+    .login-box .hint { font-size: 12px; color: #3a4a62; margin-top: 16px; }
 
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
     }
-
-    .header h1 {
-      font-size: 20px;
-      font-weight: 700;
-    }
-    .header h1 span {
-      color: #00a6ff;
-    }
-
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header h1 span { color: #00a6ff; }
     .badge {
       background: rgba(255, 107, 107, 0.15);
-      color: #ff6b6b;
-      font-size: 12px;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-weight: 600;
+      color: #ff6b6b; font-size: 12px; padding: 4px 14px;
+      border-radius: 20px; font-weight: 600;
     }
 
     .status-bar {
       background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 10px 16px;
-      margin-bottom: 16px;
-      font-size: 13px;
-      color: #6a7b94;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
+      border-radius: 12px; padding: 10px 16px; margin-bottom: 16px;
+      font-size: 13px; color: #6a7b94;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px;
     }
-
-    .status-bar .ok {
-      color: #4cdf8b;
-    }
-    .status-bar .fail {
-      color: #ff6b6b;
-    }
-
+    .status-bar .ok { color: #4cdf8b; }
+    .status-bar .fail { color: #ff6b6b; }
     .btn-sm {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      color: #6a7b94;
-      padding: 4px 14px;
-      border-radius: 12px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.2s;
+      color: #6a7b94; padding: 4px 14px; border-radius: 12px;
+      font-size: 12px; cursor: pointer; transition: 0.2s;
     }
-
-    .btn-sm:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #b0c4dd;
-    }
-
+    .btn-sm:hover { background: rgba(255, 255, 255, 0.08); color: #b0c4dd; }
     .btn-sm.primary {
       background: rgba(0, 166, 255, 0.12);
       border-color: rgba(0, 166, 255, 0.15);
       color: #4fc3ff;
     }
+    .btn-sm.primary:hover { background: rgba(0, 166, 255, 0.2); }
 
-    .btn-sm.primary:hover {
-      background: rgba(0, 166, 255, 0.2);
-    }
-
-    .add-btn-wrap {
-      margin-bottom: 16px;
-    }
-
+    .add-btn-wrap { margin-bottom: 16px; }
     .add-btn-wrap button {
-      width: 100%;
-      padding: 14px;
+      width: 100%; padding: 14px;
       background: rgba(0, 166, 255, 0.06);
       border: 2px dashed rgba(0, 166, 255, 0.15);
       border-radius: 16px;
-      color: #4fc3ff;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
+      color: #4fc3ff; font-size: 15px; font-weight: 600; cursor: pointer;
       transition: 0.2s;
     }
-
     .add-btn-wrap button:hover {
       background: rgba(0, 166, 255, 0.12);
       border-color: rgba(0, 166, 255, 0.3);
@@ -209,261 +116,133 @@
     }
 
     .user-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      gap: 8px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      gap: 8px; flex-wrap: wrap;
     }
-
-    .user-row:last-child {
-      border-bottom: none;
-    }
-
+    .user-row:last-child { border-bottom: none; }
     .user-row .info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex: 1;
-      min-width: 120px;
-      flex-wrap: wrap;
+      display: flex; align-items: center; gap: 10px;
+      flex: 1; min-width: 120px; flex-wrap: wrap;
     }
-
     .user-row .info .id {
-      font-family: monospace;
-      font-size: 14px;
-      font-weight: 600;
-      color: #4fc3ff;
-      min-width: 55px;
+      font-family: monospace; font-size: 14px; font-weight: 600;
+      color: #4fc3ff; min-width: 55px;
     }
-
-    .user-row .info .name {
-      font-size: 14px;
-      color: #b0c4dd;
-    }
-
-    .user-row .info .note {
-      font-size: 12px;
-      color: #4a5a72;
-    }
-
+    .user-row .info .name { font-size: 14px; color: #b0c4dd; }
+    .user-row .info .note { font-size: 12px; color: #4a5a72; }
     .user-row .balance-display {
-      font-size: 15px;
-      font-weight: 600;
-      color: #4cdf8b;
-      min-width: 70px;
-      text-align: right;
+      font-size: 15px; font-weight: 600; color: #4cdf8b;
+      min-width: 70px; text-align: right;
     }
-
-    .user-row .actions {
-      display: flex;
-      gap: 6px;
-    }
-
+    .user-row .actions { display: flex; gap: 6px; }
     .user-row .actions button {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.06);
-      color: #6a7b94;
-      padding: 4px 12px;
-      border-radius: 10px;
-      font-size: 12px;
-      cursor: pointer;
-      transition: 0.2s;
+      color: #6a7b94; padding: 4px 12px; border-radius: 10px;
+      font-size: 12px; cursor: pointer; transition: 0.2s;
     }
-
     .user-row .actions button:hover {
       background: rgba(255, 255, 255, 0.08);
       color: #b0c4dd;
     }
-
     .user-row .actions button.edit {
       color: #4fc3ff;
       border-color: rgba(0, 166, 255, 0.12);
       background: rgba(0, 166, 255, 0.06);
     }
-
     .user-row .actions button.edit:hover {
       background: rgba(0, 166, 255, 0.15);
     }
-
     .user-row .actions button.del {
       color: #ff6b6b;
       border-color: rgba(255, 107, 107, 0.1);
       background: rgba(255, 107, 107, 0.04);
     }
-
     .user-row .actions button.del:hover {
       background: rgba(255, 107, 107, 0.15);
     }
 
-    .empty-msg {
-      padding: 40px 20px;
-      text-align: center;
-      color: #4a5a72;
-      font-size: 14px;
-    }
+    .empty-msg { padding: 40px 20px; text-align: center; color: #4a5a72; font-size: 14px; }
 
     .footer {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 12px;
-      color: #3a4a62;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 24px; text-align: center; font-size: 12px;
+      color: #3a4a62; border-top: 1px solid rgba(255, 255, 255, 0.04);
       padding-top: 20px;
     }
-
-    .footer a {
-      color: #4a7a9c;
-      text-decoration: none;
-    }
-
-    .footer a:hover {
-      color: #6a9abc;
-    }
+    .footer a { color: #4a7a9c; text-decoration: none; }
+    .footer a:hover { color: #6a9abc; }
 
     /* ===== 弹窗 ===== */
     .modal-overlay {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(4px);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      padding: 16px;
+      justify-content: center; align-items: center;
+      z-index: 999; padding: 16px;
     }
-
-    .modal-overlay.active {
-      display: flex;
-    }
+    .modal-overlay.active { display: flex; }
 
     .modal {
       background: #1a212a;
-      border-radius: 24px;
-      padding: 28px 24px;
-      max-width: 400px;
-      width: 100%;
+      border-radius: 24px; padding: 28px 24px;
+      max-width: 400px; width: 100%;
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
-
-    .modal h2 {
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    .modal .sub {
-      font-size: 13px;
-      color: #6a7b94;
-      margin-bottom: 18px;
-    }
-
-    .modal .field {
-      margin-bottom: 14px;
-    }
-
+    .modal h2 { font-size: 18px; margin-bottom: 4px; }
+    .modal .sub { font-size: 13px; color: #6a7b94; margin-bottom: 18px; }
+    .modal .field { margin-bottom: 14px; }
     .modal .field label {
-      font-size: 12px;
-      color: #8899b0;
-      display: block;
-      margin-bottom: 4px;
-      font-weight: 500;
+      font-size: 12px; color: #8899b0;
+      display: block; margin-bottom: 4px; font-weight: 500;
     }
-
     .modal .field input {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
+      width: 100%; padding: 12px 14px; border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.04);
-      color: #e8edf5;
-      font-size: 15px;
-      outline: none;
+      color: #e8edf5; font-size: 15px; outline: none;
       transition: 0.2s;
     }
-
     .modal .field input:focus {
       border-color: #00a6ff;
       background: rgba(0, 166, 255, 0.06);
     }
-
-    .modal .field input::placeholder {
-      color: #3a4a62;
-    }
-
+    .modal .field input::placeholder { color: #3a4a62; }
     .modal .btn-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 6px;
+      display: flex; gap: 10px; margin-top: 6px;
     }
-
     .modal .btn-row button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
+      flex: 1; padding: 12px; border: none; border-radius: 14px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
       transition: 0.2s;
     }
-
-    .modal .btn-row button:active {
-      transform: scale(0.96);
-    }
-
+    .modal .btn-row button:active { transform: scale(0.96); }
     .modal .btn-row .btn-save {
       background: linear-gradient(135deg, #0088cc, #00a6ff);
       color: #fff;
     }
-
     .modal .btn-row .btn-cancel {
       background: rgba(255, 255, 255, 0.06);
       color: #6a7b94;
     }
-
-    .modal .msg {
-      font-size: 13px;
-      margin-top: 12px;
-      min-height: 20px;
-    }
-
-    .modal .msg.success {
-      color: #4cdf8b;
-    }
-    .modal .msg.error {
-      color: #ff6b6b;
-    }
+    .modal .msg { font-size: 13px; margin-top: 12px; min-height: 20px; }
+    .modal .msg.success { color: #4cdf8b; }
+    .modal .msg.error { color: #ff6b6b; }
 
     @media (max-width: 500px) {
-      .user-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 6px;
-      }
-      .user-row .info {
-        min-width: unset;
-      }
-      .user-row .balance-display {
-        text-align: left;
-      }
-      .user-row .actions {
-        justify-content: flex-end;
-      }
-      .modal {
-        padding: 20px 16px;
-      }
+      .user-row { flex-direction: column; align-items: stretch; gap: 6px; }
+      .user-row .info { min-width: unset; }
+      .user-row .balance-display { text-align: left; }
+      .user-row .actions { justify-content: flex-end; }
+      .modal { padding: 20px 16px; }
     }
   </style>
 </head>
 <body>
 
-<div class="container" id="appContainer">
+<div class="container">
 
   <!-- ===== 登录界面 ===== -->
   <div id="loginBox" class="login-box">
@@ -488,7 +267,6 @@
       <span id="statusText">📦 数据状态: <span class="fail">未加载</span></span>
       <div style="display:flex;gap:6px;flex-wrap:wrap;">
         <button class="btn-sm" onclick="loadData()">🔄 刷新</button>
-        <button class="btn-sm primary" onclick="downloadDataJson()">📥 下载 data.json</button>
       </div>
     </div>
 
@@ -536,7 +314,7 @@
 
     <div class="btn-row">
       <button class="btn-cancel" onclick="closeModal()">取消</button>
-      <button class="btn-save" id="modalSaveBtn" onclick="saveUser()">💾 保存</button>
+      <button class="btn-save" onclick="saveUser()">💾 保存</button>
     </div>
     <div class="msg" id="modalMsg"></div>
   </div>
@@ -544,14 +322,20 @@
 
 <script>
   // ================================================================
-  // ★★★ 修改密码 ★★★
+  // ★★★ JSONBin 配置 ★★★
+  // ================================================================
+  var JSONBIN_BIN_ID = '你的 Bin ID';        // 替换成你的 Bin ID
+  var JSONBIN_API_KEY = '你的 API Key';      // 替换成你的 API Key
+  var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID;
+
+  // ================================================================
+  // 管理员密码
   // ================================================================
   var ADMIN_PASSWORD = 'admin123';
 
   // ================================================================
   // 全局变量
   // ================================================================
-  var DATA_URL = 'data.json';
   var userData = null;
   var config = null;
   var isEditMode = false;
@@ -576,29 +360,30 @@
     }
   }
 
-  // 回车登录
   document.addEventListener('DOMContentLoaded', function() {
     var pwdInput = document.getElementById('passwordInput');
     if (pwdInput) {
       pwdInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          verifyPassword();
-        }
+        if (e.key === 'Enter') verifyPassword();
       });
     }
   });
 
   // ================================================================
-  // 加载数据
+  // 从 JSONBin 加载数据
   // ================================================================
   async function loadData() {
     var statusText = document.getElementById('statusText');
     statusText.innerHTML = '📦 数据状态: <span class="fail">加载中...</span>';
 
     try {
-      var response = await fetch(DATA_URL + '?t=' + Date.now());
+      var response = await fetch(JSONBIN_URL + '/latest', {
+        headers: { 'X-Access-Key': JSONBIN_API_KEY }
+      });
       if (!response.ok) throw new Error('HTTP ' + response.status);
-      var json = await response.json();
+      var result = await response.json();
+      var json = result.record;
+
       if (!json.users || typeof json.users !== 'object') throw new Error('数据格式错误');
 
       userData = json.users;
@@ -612,6 +397,36 @@
       console.error('加载失败:', error);
       statusText.innerHTML = '📦 数据状态: <span class="fail">❌ 加载失败: ' + error.message + '</span>';
       document.getElementById('userList').innerHTML = '<div class="empty-msg">❌ 加载失败，请刷新重试</div>';
+    }
+  }
+
+  // ================================================================
+  // 保存数据到 JSONBin
+  // ================================================================
+  async function saveToJSONBin() {
+    var jsonData = {
+      users: userData,
+      config: config || { apy: 0.165, lockYears: "5 / 10", projectName: "TON401k" }
+    };
+
+    try {
+      var response = await fetch(JSONBIN_URL, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Access-Key': JSONBIN_API_KEY
+        },
+        body: JSON.stringify(jsonData)
+      });
+
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+      }
+
+      return true;
+    } catch (error) {
+      console.error('保存到 JSONBin 失败:', error);
+      return false;
     }
   }
 
@@ -701,7 +516,7 @@
   // ================================================================
   // 保存用户
   // ================================================================
-  function saveUser() {
+  async function saveUser() {
     var idInput = document.getElementById('modalIdInput');
     var nameInput = document.getElementById('modalNameInput');
     var balanceInput = document.getElementById('modalBalanceInput');
@@ -750,55 +565,48 @@
     }
     userData[newId] = { name: newName, balance: newBalance, note: newNote || '' };
 
-    msg.textContent = '✅ 保存成功！已自动下载 data.json';
-    msg.className = 'msg success';
+    // ---- 保存到 JSONBin ----
+    msg.textContent = '⏳ 正在保存到云端...';
+    msg.className = 'msg';
 
-    renderUserList();
-    downloadDataJson();
+    var saved = await saveToJSONBin();
 
-    var count = Object.keys(userData).length;
-    document.getElementById('statusText').innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
+    if (saved) {
+      msg.textContent = '✅ 保存成功！数据已同步到云端';
+      msg.className = 'msg success';
+      renderUserList();
 
-    setTimeout(function() {
-      closeModal();
-    }, 1200);
+      var count = Object.keys(userData).length;
+      document.getElementById('statusText').innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
+
+      setTimeout(function() {
+        closeModal();
+      }, 1200);
+    } else {
+      msg.textContent = '❌ 保存失败，请检查网络或 JSONBin 配置';
+      msg.className = 'msg error';
+    }
   }
 
   // ================================================================
   // 删除用户
   // ================================================================
-  function deleteUser(id) {
+  async function deleteUser(id) {
     var user = userData[id];
     if (!user) return;
     if (!confirm('确定要删除用户 "' + id + '" (' + (user.name || '未命名') + ') 吗？')) return;
 
     delete userData[id];
     renderUserList();
-    downloadDataJson();
 
-    var count = Object.keys(userData).length;
-    document.getElementById('statusText').innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
-    alert('🗑️ 用户已删除，新的 data.json 已下载');
-  }
-
-  // ================================================================
-  // 下载 data.json
-  // ================================================================
-  function downloadDataJson() {
-    var jsonData = {
-      users: userData,
-      config: config || { apy: 0.165, lockYears: "5 / 10", projectName: "TON401k" }
-    };
-    var jsonStr = JSON.stringify(jsonData, null, 2);
-    var blob = new Blob([jsonStr], { type: 'application/json' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'data.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    var saved = await saveToJSONBin();
+    if (saved) {
+      var count = Object.keys(userData).length;
+      document.getElementById('statusText').innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
+      alert('🗑️ 用户已删除，数据已同步到云端');
+    } else {
+      alert('❌ 删除失败，请检查网络');
+    }
   }
 
   // ================================================================
@@ -826,8 +634,8 @@
     }
   });
 
-  console.log('💡 管理员工具已启动');
-  console.log('💡 修改密码: 找到代码中 ADMIN_PASSWORD 变量');
+  console.log('💡 JSONBin 模式已启动，修改后自动同步到云端');
+  console.log('💡 管理员密码: admin123');
 </script>
 
 </body>
