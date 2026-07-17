@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TON401k · 查余额</title>
+  <title>TON401k · Check Balance</title>
   <style>
     * {
       margin: 0;
@@ -291,6 +291,11 @@
       color: #e8edf5;
     }
 
+    .profit-info .highlight {
+      color: #4cdf8b;
+      font-weight: 600;
+    }
+
     .profit-info .divider {
       margin: 8px 0 4px;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -346,84 +351,79 @@
     <div class="brand-icon">T</div>
     <div>
       <div class="brand-name">TON<span id="projectName">401k</span></div>
-      <div class="brand-sub">链上退休储蓄 · USDT 收益金库</div>
+      <div class="brand-sub">Retirement Savings · USDT Yield Vault</div>
     </div>
   </div>
 
   <div class="input-section">
-    <label>🔑 请输入你的账户 ID</label>
+    <label>🔑 Enter your account ID</label>
     <div class="input-row">
       <input type="text" id="userIdInput" placeholder="" maxlength="20" autofocus />
-      <button id="checkBtn">查询</button>
+      <button id="checkBtn">Check</button>
     </div>
     <div class="error-msg" id="errorMsg"></div>
     <div class="loading-msg" id="loadingMsg" style="display:none;">
-      <span class="spinner"></span> 正在加载数据...
+      <span class="spinner"></span> Loading data...
     </div>
 
     <div class="profit-info" id="profitInfo">
-      <div class="title">收益说明</div>
-      <div class="item"><strong>年化收益 17%</strong> · 每日复利滚存，收益自动加入本金</div>
-      <div class="item"><strong>锁仓 5/10 年</strong> · 强制储蓄，提前取出将收取罚金</div>
-      <div class="item">收益来源：USDT 存入 <strong>Telegram 官方收益金库</strong>，参与链上借贷与流动性策略</div>
-      <div class="item">资金由 <strong>智能合约</strong> 托管，非托管设计，任何第三方无法挪用</div>
+      <div class="title">📈 How It Works</div>
+      <div class="item"><strong>17% annual yield</strong> · Compounded daily, interest is auto-reinvested</div>
+      <div class="item"><strong>5/10 year lock-up</strong> · Committed savings, early withdrawal penalty applies</div>
+      <div class="item">Your deposits are allocated to the <strong>Telegram Official USDT Vault</strong>, participating in on-chain lending and liquidity strategies</div>
+      <div class="item">All funds are secured by <strong>smart contracts</strong> — non-custodial, no third-party access</div>
+      <div class="item" style="color:#4fc3ff;font-weight:500;padding-top:6px;">
+        ⚡ Estimated yield is calculated separately and displayed as "Projected Yield" — it is <strong>not</strong> included in your balance. When you withdraw, your accrued yield will be credited to your wallet together with your principal.
+      </div>
       <div class="divider"></div>
-      <div class="item-small">历史收益不代表未来表现，DeFi 存在智能合约及市场风险</div>
+      <div class="item-small">Past performance does not guarantee future results. DeFi involves smart contract and market risks.</div>
     </div>
   </div>
 
   <div class="result-section" id="resultSection">
     <div class="user-info">
-      <span>👤 <span class="name" id="userName">用户</span></span>
+      <span>👤 <span class="name" id="userName">User</span></span>
       <span>ID: <span class="id" id="userIdDisplay">-</span></span>
     </div>
 
     <div class="hero-card">
-      <div class="hero-label">📊 当前总资产 (USDT)</div>
+      <div class="hero-label">📊 Total Assets (USDT)</div>
       <div class="hero-balance" id="balanceDisplay">0.00 <small>USDT</small></div>
 
       <div class="hero-row">
         <div class="hero-stat">
           <div class="number green" id="profitDisplay">+0.00</div>
-          <div class="label">📈 预期年化收益</div>
+          <div class="label">📈 Projected Yield</div>
         </div>
         <div class="hero-stat">
-          <div class="number" id="apyDisplay">15–18%</div>
-          <div class="label">🏦 参考 APY</div>
+          <div class="number" id="apyDisplay">17%</div>
+          <div class="label">🏦 Target APY</div>
         </div>
         <div class="hero-stat">
-          <div class="number gold" id="lockDisplay">5 / 10 年</div>
-          <div class="label">🔒 锁仓期限</div>
+          <div class="number gold" id="lockDisplay">5 / 10 Yrs</div>
+          <div class="label">🔒 Lock-up Period</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="intro-section">
-    <div class="title">🏦 关于 <span id="introProjectName">TON401k</span></div>
+    <div class="title">🏦 About <span id="introProjectName">TON401k</span></div>
     <div class="desc">
-      基于 TON 区块链的去中心化退休储蓄协议。
-      通过智能合约自动复利增值，预期年化收益 <strong id="introApy">17%</strong>。
+      A decentralized retirement savings protocol built on the TON blockchain.
+      Your funds are automatically compounded via smart contracts, targeting an annual yield of <strong id="introApy">17%</strong>.
     </div>
   </div>
 
   <div class="footer">
-    ⚡ 基于 TON Blockchain · 历史收益不代表未来表现
+    ⚡ Built on TON Blockchain · Past performance does not guarantee future returns
   </div>
 
 </div>
 
 <script>
-  // ================================================================
-  // ★★★ JSONBin 配置（已填入你的密钥） ★★★
-  // ================================================================
-  var JSONBIN_BIN_ID = '6a597886f5f4af5e299a2e6e';
-  var JSONBIN_API_KEY = '$2a$10$K4zabheklRZlDS1OG60FDOgf6/cA19ya.nzBDappwuMLkiciUYm5.';
-  var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID + '/latest';
+  var DATA_URL = 'data.json';
 
-  // ================================================================
-  // 全局变量
-  // ================================================================
   var userData = null;
   var config = null;
   var dataLoaded = false;
@@ -443,28 +443,20 @@
   var introProjectName = document.getElementById('introProjectName');
   var introApy = document.getElementById('introApy');
 
-  // ================================================================
-  // 从 JSONBin 加载数据
-  // ================================================================
   async function loadData() {
     loadingMsg.style.display = 'flex';
 
     try {
-      var response = await fetch(JSONBIN_URL, {
-        headers: {
-          'X-Access-Key': JSONBIN_API_KEY
-        }
-      });
+      var response = await fetch(DATA_URL + '?t=' + Date.now());
 
       if (!response.ok) {
         throw new Error('HTTP ' + response.status);
       }
 
-      var result = await response.json();
-      var json = result.record;
+      var json = await response.json();
 
       if (!json.users || typeof json.users !== 'object') {
-        throw new Error('数据格式错误');
+        throw new Error('Invalid data format');
       }
 
       userData = json.users;
@@ -477,17 +469,13 @@
       return true;
 
     } catch (error) {
-      console.error('加载数据失败:', error);
+      console.error('Failed to load data:', error);
       loadingMsg.style.display = 'none';
       checkBtn.disabled = true;
-      errorMsg.textContent = '❌ 数据加载失败，请刷新重试';
       return false;
     }
   }
 
-  // ================================================================
-  // 应用配置
-  // ================================================================
   function applyConfig(config) {
     if (config.apy) {
       var percent = (config.apy * 100).toFixed(0);
@@ -505,20 +493,17 @@
     }
   }
 
-  // ================================================================
-  // 查询用户
-  // ================================================================
   function checkUser(id) {
     var trimmedId = id.trim().toUpperCase();
     errorMsg.textContent = '';
 
     if (!dataLoaded) {
-      errorMsg.textContent = '⏳ 数据加载中，请稍后...';
+      errorMsg.textContent = '⏳ Loading data, please wait...';
       return;
     }
 
     if (!trimmedId) {
-      errorMsg.textContent = '⚠️ 请输入 ID';
+      errorMsg.textContent = '⚠️ Please enter an ID';
       resultSection.classList.remove('visible');
       return;
     }
@@ -526,12 +511,12 @@
     var user = userData[trimmedId];
 
     if (!user) {
-      errorMsg.textContent = '❌ 未找到该 ID，请确认后重试';
+      errorMsg.textContent = '❌ ID not found, please try again';
       resultSection.classList.remove('visible');
       return;
     }
 
-    userName.textContent = user.name || '用户';
+    userName.textContent = user.name || 'User';
     userIdDisplay.textContent = trimmedId;
 
     var balance = user.balance || 0;
@@ -545,9 +530,6 @@
     errorMsg.textContent = '';
   }
 
-  // ================================================================
-  // 绑定事件
-  // ================================================================
   checkBtn.addEventListener('click', function() {
     checkUser(userIdInput.value);
   });
@@ -571,7 +553,8 @@
     }
   })();
 
-  console.log('💡 数据来自 JSONBin，修改后实时生效');
+  console.log('💡 View all users: userData');
+  console.log('💡 Update balance: userData["A001"].balance = 9999');
 </script>
 
 </body>
