@@ -27,7 +27,6 @@
       width: 100%;
     }
 
-    /* ===== 品牌头 ===== */
     .brand-header {
       display: flex;
       align-items: center;
@@ -64,7 +63,6 @@
       color: #8a7a9e;
     }
 
-    /* ===== 输入区 ===== */
     .input-section {
       background: rgba(107, 63, 160, 0.08);
       border-radius: 20px;
@@ -172,7 +170,6 @@
       }
     }
 
-    /* ===== 结果区 ===== */
     .result-section {
       margin-top: 20px;
       display: none;
@@ -217,7 +214,6 @@
       color: #c8b8d8;
     }
 
-    /* ===== 余额卡片 - 金色主题 ===== */
     .hero-card {
       background: linear-gradient(145deg, #1a1228, #0d0a18);
       border-radius: 28px;
@@ -303,7 +299,6 @@
       margin-top: 4px;
     }
 
-    /* ===== 收益说明 ===== */
     .profit-info {
       margin-top: 20px;
       padding: 16px 18px;
@@ -356,7 +351,6 @@
       padding: 2px 0;
     }
 
-    /* ===== 关于 ===== */
     .intro-section {
       margin-top: 24px;
       background: rgba(107, 63, 160, 0.04);
@@ -396,16 +390,15 @@
 
 <div class="app-container">
 
-  <!-- ===== 品牌头 ===== -->
   <div class="brand-header">
     <div class="brand-icon">T</div>
     <div>
-      <div class="brand-name">TON<span id="projectName">401k</span></div>
+      <!-- 修复：去掉多余的 TON，只保留 TON401k（金色高亮） -->
+      <div class="brand-name"><span id="projectName">TON401k</span></div>
       <div class="brand-sub">Retirement Savings · USDT Yield Vault</div>
     </div>
   </div>
 
-  <!-- ===== 输入区 ===== -->
   <div class="input-section">
     <label>🔑 Enter your account ID</label>
     <div class="input-row">
@@ -418,7 +411,6 @@
     </div>
   </div>
 
-  <!-- ===== 结果区 ===== -->
   <div class="result-section" id="resultSection">
     <div class="user-info">
       <span>👤 <span class="name" id="userName">User</span></span>
@@ -446,7 +438,6 @@
     </div>
   </div>
 
-  <!-- ===== 收益说明 ===== -->
   <div class="profit-info" id="profitInfo">
     <div class="title">📈 How It Works</div>
     <div class="item"><strong>17% annual yield</strong> · Compounded daily, interest is auto-reinvested</div>
@@ -460,7 +451,6 @@
     <div class="item-small">Past performance does not guarantee future results. DeFi involves smart contract and market risks.</div>
   </div>
 
-  <!-- ===== 关于 ===== -->
   <div class="intro-section">
     <div class="title">🏦 About <span id="introProjectName">TON401k</span></div>
     <div class="desc">
