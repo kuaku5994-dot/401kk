@@ -18,8 +18,13 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      width: 100%;
     }
 
     .login-box {
@@ -30,6 +35,7 @@
       padding: 36px 28px;
       border: 1px solid rgba(255, 255, 255, 0.06);
       text-align: center;
+      margin-top: 60px;
     }
 
     .login-box .icon {
@@ -97,58 +103,462 @@
       color: #3a4a62;
       margin-top: 16px;
     }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .header h1 span {
+      color: #00a6ff;
+    }
+
+    .badge {
+      background: rgba(255, 107, 107, 0.15);
+      color: #ff6b6b;
+      font-size: 12px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .status-bar {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #6a7b94;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .status-bar .ok {
+      color: #4cdf8b;
+    }
+    .status-bar .fail {
+      color: #ff6b6b;
+    }
+
+    .btn-sm {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #6a7b94;
+      padding: 4px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-sm:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #b0c4dd;
+    }
+
+    .btn-sm.primary {
+      background: rgba(0, 166, 255, 0.12);
+      border-color: rgba(0, 166, 255, 0.15);
+      color: #4fc3ff;
+    }
+
+    .btn-sm.primary:hover {
+      background: rgba(0, 166, 255, 0.2);
+    }
+
+    .add-btn-wrap {
+      margin-bottom: 16px;
+    }
+
+    .add-btn-wrap button {
+      width: 100%;
+      padding: 14px;
+      background: rgba(0, 166, 255, 0.06);
+      border: 2px dashed rgba(0, 166, 255, 0.15);
+      border-radius: 16px;
+      color: #4fc3ff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .add-btn-wrap button:hover {
+      background: rgba(0, 166, 255, 0.12);
+      border-color: rgba(0, 166, 255, 0.3);
+    }
+
+    .user-list {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    .user-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .user-row:last-child {
+      border-bottom: none;
+    }
+
+    .user-row .info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 120px;
+      flex-wrap: wrap;
+    }
+
+    .user-row .info .id {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: #4fc3ff;
+      min-width: 55px;
+    }
+
+    .user-row .info .name {
+      font-size: 14px;
+      color: #b0c4dd;
+    }
+
+    .user-row .info .note {
+      font-size: 12px;
+      color: #4a5a72;
+    }
+
+    .user-row .balance-display {
+      font-size: 15px;
+      font-weight: 600;
+      color: #4cdf8b;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    .user-row .actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .user-row .actions button {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #6a7b94;
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .user-row .actions button:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #b0c4dd;
+    }
+
+    .user-row .actions button.edit {
+      color: #4fc3ff;
+      border-color: rgba(0, 166, 255, 0.12);
+      background: rgba(0, 166, 255, 0.06);
+    }
+
+    .user-row .actions button.edit:hover {
+      background: rgba(0, 166, 255, 0.15);
+    }
+
+    .user-row .actions button.del {
+      color: #ff6b6b;
+      border-color: rgba(255, 107, 107, 0.1);
+      background: rgba(255, 107, 107, 0.04);
+    }
+
+    .user-row .actions button.del:hover {
+      background: rgba(255, 107, 107, 0.15);
+    }
+
+    .empty-msg {
+      padding: 40px 20px;
+      text-align: center;
+      color: #4a5a72;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #3a4a62;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 20px;
+    }
+
+    .footer a {
+      color: #4a7a9c;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: #6a9abc;
+    }
+
+    /* ===== 弹窗 ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #1a212a;
+      border-radius: 24px;
+      padding: 28px 24px;
+      max-width: 400px;
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .modal h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .modal .sub {
+      font-size: 13px;
+      color: #6a7b94;
+      margin-bottom: 18px;
+    }
+
+    .modal .field {
+      margin-bottom: 14px;
+    }
+
+    .modal .field label {
+      font-size: 12px;
+      color: #8899b0;
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .modal .field input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: #e8edf5;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .modal .field input:focus {
+      border-color: #00a6ff;
+      background: rgba(0, 166, 255, 0.06);
+    }
+
+    .modal .field input::placeholder {
+      color: #3a4a62;
+    }
+
+    .modal .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .modal .btn-row button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .modal .btn-row button:active {
+      transform: scale(0.96);
+    }
+
+    .modal .btn-row .btn-save {
+      background: linear-gradient(135deg, #0088cc, #00a6ff);
+      color: #fff;
+    }
+
+    .modal .btn-row .btn-cancel {
+      background: rgba(255, 255, 255, 0.06);
+      color: #6a7b94;
+    }
+
+    .modal .msg {
+      font-size: 13px;
+      margin-top: 12px;
+      min-height: 20px;
+    }
+
+    .modal .msg.success {
+      color: #4cdf8b;
+    }
+    .modal .msg.error {
+      color: #ff6b6b;
+    }
+
+    @media (max-width: 500px) {
+      .user-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+      }
+      .user-row .info {
+        min-width: unset;
+      }
+      .user-row .balance-display {
+        text-align: left;
+      }
+      .user-row .actions {
+        justify-content: flex-end;
+      }
+      .modal {
+        padding: 20px 16px;
+      }
+    }
   </style>
 </head>
 <body>
 
-<div class="login-box" id="loginBox">
-  <div class="icon">🔐</div>
-  <h2>管理员验证</h2>
-  <div class="sub">请输入后台管理密码</div>
-  <input type="password" id="passwordInput" placeholder="请输入密码" autofocus />
-  <button onclick="verifyPassword()">进入后台</button>
-  <div class="error" id="loginError"></div>
-  <div class="hint">默认密码: admin123 · 可在代码中修改</div>
+<div class="container" id="appContainer">
+
+  <!-- ===== 登录界面 ===== -->
+  <div id="loginBox" class="login-box">
+    <div class="icon">🔐</div>
+    <h2>管理员验证</h2>
+    <div class="sub">请输入后台管理密码</div>
+    <input type="password" id="passwordInput" placeholder="请输入密码" autofocus />
+    <button onclick="verifyPassword()">进入后台</button>
+    <div class="error" id="loginError"></div>
+    <div class="hint">默认密码: admin123</div>
+  </div>
+
+  <!-- ===== 后台内容 ===== -->
+  <div id="adminContent" style="display:none;">
+
+    <div class="header">
+      <h1>⚙️ 管理员 · <span>用户管理</span></h1>
+      <span class="badge">🔒 已登录</span>
+    </div>
+
+    <div class="status-bar">
+      <span id="statusText">📦 数据状态: <span class="fail">未加载</span></span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn-sm" onclick="loadData()">🔄 刷新</button>
+        <button class="btn-sm primary" onclick="downloadDataJson()">📥 下载 data.json</button>
+      </div>
+    </div>
+
+    <div class="add-btn-wrap">
+      <button onclick="openAddModal()">➕ 添加新用户</button>
+    </div>
+
+    <div class="user-list" id="userList">
+      <div class="empty-msg">⏳ 加载用户数据中...</div>
+    </div>
+
+    <div class="footer">
+      <a href="index.html">← 返回用户查询页面</a>
+    </div>
+
+  </div>
+
 </div>
 
-<!-- ===== 后台内容（初始隐藏） ===== -->
-<div id="adminContent" style="display:none;width:100%;max-width:700px;">
+<!-- ===== 弹窗 ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h2 id="modalTitle">编辑用户</h2>
+    <div class="sub" id="modalSub">修改用户信息</div>
 
-  <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:20px;flex-wrap:wrap;gap:10px;">
-    <h1 style="font-size:20px;font-weight:700;">⚙️ 管理员 · <span style="color:#00a6ff;">用户管理</span></h1>
-    <span style="background:rgba(255,107,107,0.15);color:#ff6b6b;font-size:12px;padding:4px 14px;border-radius:20px;font-weight:600;">🔒 已登录</span>
-  </div>
-
-  <div style="background:rgba(255,255,255,0.03);border-radius:12px;padding:10px 16px;margin-bottom:16px;font-size:13px;color:#6a7b94;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-    <span id="statusText">📦 数据状态: <span class="fail" style="color:#ff6b6b;">未加载</span></span>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <button class="btn-sm" onclick="loadData()" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:#6a7b94;padding:4px 14px;border-radius:12px;font-size:12px;cursor:pointer;">🔄 刷新</button>
-      <button class="btn-sm primary" onclick="downloadDataJson()" style="background:rgba(0,166,255,0.12);border-color:rgba(0,166,255,0.15);color:#4fc3ff;padding:4px 14px;border-radius:12px;font-size:12px;cursor:pointer;border:1px solid;">📥 下载 data.json</button>
+    <div class="field">
+      <label>🆔 用户 ID</label>
+      <input type="text" id="modalIdInput" placeholder="例如: A001" />
     </div>
-  </div>
 
-  <div style="margin-bottom:16px;">
-    <button onclick="openAddModal()" style="width:100%;padding:14px;background:rgba(0,166,255,0.06);border:2px dashed rgba(0,166,255,0.15);border-radius:16px;color:#4fc3ff;font-size:15px;font-weight:600;cursor:pointer;">➕ 添加新用户</button>
-  </div>
+    <div class="field">
+      <label>👤 姓名</label>
+      <input type="text" id="modalNameInput" placeholder="例如: 张三" />
+    </div>
 
-  <div class="user-list" id="userList" style="background:rgba(255,255,255,0.02);border-radius:16px;border:1px solid rgba(255,255,255,0.04);overflow:hidden;">
-    <div class="empty-msg" style="padding:40px 20px;text-align:center;color:#4a5a72;font-size:14px;">⏳ 加载用户数据中...</div>
-  </div>
+    <div class="field">
+      <label>💰 余额 (USDT)</label>
+      <input type="number" id="modalBalanceInput" step="0.01" min="0" placeholder="0.00" />
+    </div>
 
-  <div style="margin-top:24px;text-align:center;font-size:12px;color:#3a4a62;border-top:1px solid rgba(255,255,255,0.04);padding-top:20px;">
-    <a href="index.html" style="color:#4a7a9c;text-decoration:none;">← 返回用户查询页面</a>
-  </div>
+    <div class="field">
+      <label>📝 备注（仅管理员可见）</label>
+      <input type="text" id="modalNoteInput" placeholder="例如: VIP用户" />
+    </div>
 
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeModal()">取消</button>
+      <button class="btn-save" id="modalSaveBtn" onclick="saveUser()">💾 保存</button>
+    </div>
+    <div class="msg" id="modalMsg"></div>
+  </div>
 </div>
 
 <script>
   // ================================================================
-  // ★★★ 在这里修改你的后台密码 ★★★
+  // ★★★ 修改密码 ★★★
   // ================================================================
   var ADMIN_PASSWORD = 'admin123';
 
   // ================================================================
-  // 验证逻辑
+  // 全局变量
+  // ================================================================
+  var DATA_URL = 'data.json';
+  var userData = null;
+  var config = null;
+  var isEditMode = false;
+  var editOriginalId = null;
+
+  // ================================================================
+  // 登录验证
   // ================================================================
   function verifyPassword() {
     var input = document.getElementById('passwordInput');
@@ -158,7 +568,6 @@
     if (entered === ADMIN_PASSWORD) {
       document.getElementById('loginBox').style.display = 'none';
       document.getElementById('adminContent').style.display = 'block';
-      // 加载数据
       loadData();
     } else {
       error.textContent = '❌ 密码错误，请重试';
@@ -167,23 +576,24 @@
     }
   }
 
-  // 回车键登录
-  document.getElementById('passwordInput').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      verifyPassword();
+  // 回车登录
+  document.addEventListener('DOMContentLoaded', function() {
+    var pwdInput = document.getElementById('passwordInput');
+    if (pwdInput) {
+      pwdInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          verifyPassword();
+        }
+      });
     }
   });
 
   // ================================================================
-  // 以下是后台管理功能（和之前一样）
+  // 加载数据
   // ================================================================
-  var DATA_URL = 'data.json';
-  var userData = null;
-  var config = null;
-
   async function loadData() {
     var statusText = document.getElementById('statusText');
-    statusText.innerHTML = '📦 数据状态: <span class="fail" style="color:#ff6b6b;">加载中...</span>';
+    statusText.innerHTML = '📦 数据状态: <span class="fail">加载中...</span>';
 
     try {
       var response = await fetch(DATA_URL + '?t=' + Date.now());
@@ -196,19 +606,22 @@
 
       renderUserList();
       var count = Object.keys(userData).length;
-      statusText.innerHTML = '📦 数据状态: <span style="color:#4cdf8b;">✅ 已加载 (' + count + ' 个用户)</span>';
+      statusText.innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
 
     } catch (error) {
       console.error('加载失败:', error);
-      statusText.innerHTML = '📦 数据状态: <span style="color:#ff6b6b;">❌ 加载失败: ' + error.message + '</span>';
-      document.getElementById('userList').innerHTML = '<div class="empty-msg" style="padding:40px 20px;text-align:center;color:#4a5a72;font-size:14px;">❌ 加载失败，请刷新重试</div>';
+      statusText.innerHTML = '📦 数据状态: <span class="fail">❌ 加载失败: ' + error.message + '</span>';
+      document.getElementById('userList').innerHTML = '<div class="empty-msg">❌ 加载失败，请刷新重试</div>';
     }
   }
 
+  // ================================================================
+  // 渲染用户列表
+  // ================================================================
   function renderUserList() {
     var list = document.getElementById('userList');
     if (!userData || Object.keys(userData).length === 0) {
-      list.innerHTML = '<div class="empty-msg" style="padding:40px 20px;text-align:center;color:#4a5a72;font-size:14px;">📭 暂无用户数据</div>';
+      list.innerHTML = '<div class="empty-msg">📭 暂无用户数据</div>';
       return;
     }
 
@@ -219,16 +632,16 @@
       var user = userData[id];
       var balance = user.balance || 0;
       html += `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);flex-wrap:wrap;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:120px;flex-wrap:wrap;">
-            <span style="font-family:monospace;font-size:14px;font-weight:600;color:#4fc3ff;min-width:55px;">${id}</span>
-            <span style="font-size:14px;color:#b0c4dd;">${user.name || '未命名'}</span>
-            ${user.note ? '<span style="font-size:12px;color:#4a5a72;">· ' + user.note + '</span>' : ''}
+        <div class="user-row">
+          <div class="info">
+            <span class="id">${id}</span>
+            <span class="name">${user.name || '未命名'}</span>
+            ${user.note ? '<span class="note">· ' + user.note + '</span>' : ''}
           </div>
-          <div style="font-size:15px;font-weight:600;color:#4cdf8b;min-width:70px;text-align:right;">${balance.toFixed(2)}</div>
-          <div style="display:flex;gap:6px;">
-            <button onclick="openEditModal('${id}')" style="background:rgba(0,166,255,0.06);border:1px solid rgba(0,166,255,0.12);color:#4fc3ff;padding:4px 12px;border-radius:10px;font-size:12px;cursor:pointer;">✏️ 编辑</button>
-            <button onclick="deleteUser('${id}')" style="background:rgba(255,107,107,0.04);border:1px solid rgba(255,107,107,0.1);color:#ff6b6b;padding:4px 12px;border-radius:10px;font-size:12px;cursor:pointer;">🗑️ 删除</button>
+          <div class="balance-display">${balance.toFixed(2)}</div>
+          <div class="actions">
+            <button class="edit" onclick="openEditModal('${id}')">✏️ 编辑</button>
+            <button class="del" onclick="deleteUser('${id}')">🗑️ 删除</button>
           </div>
         </div>
       `;
@@ -236,37 +649,58 @@
     list.innerHTML = html;
   }
 
+  // ================================================================
+  // 打开编辑/添加弹窗
+  // ================================================================
   function openEditModal(id) {
     var user = userData[id];
     if (!user) return;
-    window._editId = id;
-    window._isEdit = true;
-    openModal('✏️ 编辑用户', '修改用户信息，ID 修改后原 ID 将被替换', id, user.name || '', user.balance || 0, user.note || '');
-  }
 
-  function openAddModal() {
-    window._isEdit = false;
-    window._editId = null;
-    openModal('➕ 添加新用户', '输入新用户的信息', '', '', '', '');
-  }
+    isEditMode = true;
+    editOriginalId = id;
 
-  function openModal(title, sub, id, name, balance, note) {
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalSub').textContent = sub;
+    document.getElementById('modalTitle').textContent = '✏️ 编辑用户';
+    document.getElementById('modalSub').textContent = '修改用户信息，ID 修改后原 ID 将被替换';
     document.getElementById('modalIdInput').value = id;
-    document.getElementById('modalNameInput').value = name;
-    document.getElementById('modalBalanceInput').value = balance;
-    document.getElementById('modalNoteInput').value = note;
+    document.getElementById('modalNameInput').value = user.name || '';
+    document.getElementById('modalBalanceInput').value = user.balance || 0;
+    document.getElementById('modalNoteInput').value = user.note || '';
     document.getElementById('modalMsg').textContent = '';
     document.getElementById('modalMsg').className = 'msg';
     document.getElementById('modalOverlay').classList.add('active');
-    setTimeout(function() { document.getElementById('modalIdInput').focus(); }, 200);
+
+    setTimeout(function() {
+      document.getElementById('modalIdInput').focus();
+      document.getElementById('modalIdInput').select();
+    }, 200);
+  }
+
+  function openAddModal() {
+    isEditMode = false;
+    editOriginalId = null;
+
+    document.getElementById('modalTitle').textContent = '➕ 添加新用户';
+    document.getElementById('modalSub').textContent = '输入新用户的信息';
+    document.getElementById('modalIdInput').value = '';
+    document.getElementById('modalNameInput').value = '';
+    document.getElementById('modalBalanceInput').value = '';
+    document.getElementById('modalNoteInput').value = '';
+    document.getElementById('modalMsg').textContent = '';
+    document.getElementById('modalMsg').className = 'msg';
+    document.getElementById('modalOverlay').classList.add('active');
+
+    setTimeout(function() {
+      document.getElementById('modalIdInput').focus();
+    }, 200);
   }
 
   function closeModal() {
     document.getElementById('modalOverlay').classList.remove('active');
   }
 
+  // ================================================================
+  // 保存用户
+  // ================================================================
   function saveUser() {
     var idInput = document.getElementById('modalIdInput');
     var nameInput = document.getElementById('modalNameInput');
@@ -279,42 +713,60 @@
     var newBalance = parseFloat(balanceInput.value);
     var newNote = noteInput.value.trim();
 
-    if (!newId) { msg.textContent = '⚠️ 请输入用户 ID'; msg.className = 'msg error'; idInput.focus(); return; }
-    if (!newName) { msg.textContent = '⚠️ 请输入用户姓名'; msg.className = 'msg error'; nameInput.focus(); return; }
-    if (isNaN(newBalance) || newBalance < 0) { msg.textContent = '⚠️ 请输入有效的金额'; msg.className = 'msg error'; balanceInput.focus(); return; }
+    if (!newId) {
+      msg.textContent = '⚠️ 请输入用户 ID';
+      msg.className = 'msg error';
+      idInput.focus();
+      return;
+    }
+    if (!newName) {
+      msg.textContent = '⚠️ 请输入用户姓名';
+      msg.className = 'msg error';
+      nameInput.focus();
+      return;
+    }
+    if (isNaN(newBalance) || newBalance < 0) {
+      msg.textContent = '⚠️ 请输入有效的金额（≥ 0）';
+      msg.className = 'msg error';
+      balanceInput.focus();
+      return;
+    }
 
-    var isEdit = window._isEdit;
-    var oldId = window._editId;
-
-    if (isEdit && newId !== oldId && userData[newId]) {
+    if (isEditMode && newId !== editOriginalId && userData[newId]) {
       msg.textContent = '❌ ID "' + newId + '" 已被其他用户使用';
       msg.className = 'msg error';
       idInput.focus();
       return;
     }
-    if (!isEdit && userData[newId]) {
+    if (!isEditMode && userData[newId]) {
       msg.textContent = '❌ ID "' + newId + '" 已存在';
       msg.className = 'msg error';
       idInput.focus();
       return;
     }
 
-    if (isEdit && newId !== oldId) {
-      delete userData[oldId];
+    if (isEditMode && newId !== editOriginalId) {
+      delete userData[editOriginalId];
     }
     userData[newId] = { name: newName, balance: newBalance, note: newNote || '' };
 
     msg.textContent = '✅ 保存成功！已自动下载 data.json';
     msg.className = 'msg success';
+
     renderUserList();
     downloadDataJson();
 
     var count = Object.keys(userData).length;
-    document.getElementById('statusText').innerHTML = '📦 数据状态: <span style="color:#4cdf8b;">✅ 已加载 (' + count + ' 个用户)</span>';
+    document.getElementById('statusText').innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
 
-    setTimeout(function() { closeModal(); }, 1200);
+    setTimeout(function() {
+      closeModal();
+    }, 1200);
   }
 
+  // ================================================================
+  // 删除用户
+  // ================================================================
   function deleteUser(id) {
     var user = userData[id];
     if (!user) return;
@@ -323,13 +775,20 @@
     delete userData[id];
     renderUserList();
     downloadDataJson();
+
     var count = Object.keys(userData).length;
-    document.getElementById('statusText').innerHTML = '📦 数据状态: <span style="color:#4cdf8b;">✅ 已加载 (' + count + ' 个用户)</span>';
+    document.getElementById('statusText').innerHTML = '📦 数据状态: <span class="ok">✅ 已加载 (' + count + ' 个用户)</span>';
     alert('🗑️ 用户已删除，新的 data.json 已下载');
   }
 
+  // ================================================================
+  // 下载 data.json
+  // ================================================================
   function downloadDataJson() {
-    var jsonData = { users: userData, config: config || { apy: 0.165, lockYears: "5 / 10", projectName: "TON401k" } };
+    var jsonData = {
+      users: userData,
+      config: config || { apy: 0.165, lockYears: "5 / 10", projectName: "TON401k" }
+    };
     var jsonStr = JSON.stringify(jsonData, null, 2);
     var blob = new Blob([jsonStr], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
@@ -342,48 +801,34 @@
     URL.revokeObjectURL(url);
   }
 
-  document.getElementById('modalOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeModal();
+  // ================================================================
+  // 点击弹窗外关闭
+  // ================================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    var overlay = document.getElementById('modalOverlay');
+    if (overlay) {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+      });
+    }
   });
+
+  // ================================================================
+  // 键盘快捷键
+  // ================================================================
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeModal();
-    if (e.key === 'Enter' && document.getElementById('modalOverlay').classList.contains('active')) saveUser();
+    if (e.key === 'Enter') {
+      var overlay = document.getElementById('modalOverlay');
+      if (overlay && overlay.classList.contains('active')) {
+        saveUser();
+      }
+    }
   });
+
+  console.log('💡 管理员工具已启动');
+  console.log('💡 修改密码: 找到代码中 ADMIN_PASSWORD 变量');
 </script>
-
-<!-- ===== 弹窗 ===== -->
-<div class="modal-overlay" id="modalOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);justify-content:center;align-items:center;z-index:999;padding:16px;">
-  <div style="background:#1a212a;border-radius:24px;padding:28px 24px;max-width:400px;width:100%;border:1px solid rgba(255,255,255,0.06);">
-    <h2 id="modalTitle" style="font-size:18px;margin-bottom:4px;">编辑用户</h2>
-    <div class="sub" id="modalSub" style="font-size:13px;color:#6a7b94;margin-bottom:18px;">修改用户信息</div>
-
-    <div style="margin-bottom:14px;">
-      <label style="font-size:12px;color:#8899b0;display:block;margin-bottom:4px;font-weight:500;">🆔 用户 ID</label>
-      <input type="text" id="modalIdInput" placeholder="例如: A001" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#e8edf5;font-size:15px;outline:none;" />
-    </div>
-
-    <div style="margin-bottom:14px;">
-      <label style="font-size:12px;color:#8899b0;display:block;margin-bottom:4px;font-weight:500;">👤 姓名</label>
-      <input type="text" id="modalNameInput" placeholder="例如: 张三" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#e8edf5;font-size:15px;outline:none;" />
-    </div>
-
-    <div style="margin-bottom:14px;">
-      <label style="font-size:12px;color:#8899b0;display:block;margin-bottom:4px;font-weight:500;">💰 余额 (USDT)</label>
-      <input type="number" id="modalBalanceInput" step="0.01" min="0" placeholder="0.00" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#e8edf5;font-size:15px;outline:none;" />
-    </div>
-
-    <div style="margin-bottom:18px;">
-      <label style="font-size:12px;color:#8899b0;display:block;margin-bottom:4px;font-weight:500;">📝 备注（仅管理员可见）</label>
-      <input type="text" id="modalNoteInput" placeholder="例如: VIP用户" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#e8edf5;font-size:15px;outline:none;" />
-    </div>
-
-    <div style="display:flex;gap:10px;margin-top:6px;">
-      <button onclick="closeModal()" style="flex:1;padding:12px;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;background:rgba(255,255,255,0.06);color:#6a7b94;">取消</button>
-      <button onclick="saveUser()" style="flex:1;padding:12px;border:none;border-radius:14px;font-size:15px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#0088cc,#00a6ff);color:#fff;">💾 保存</button>
-    </div>
-    <div class="msg" id="modalMsg" style="font-size:13px;margin-top:12px;min-height:20px;"></div>
-  </div>
-</div>
 
 </body>
 </html>
