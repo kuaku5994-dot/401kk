@@ -291,11 +291,6 @@
       color: #e8edf5;
     }
 
-    .profit-info .highlight {
-      color: #4cdf8b;
-      font-weight: 600;
-    }
-
     .profit-info .divider {
       margin: 8px 0 4px;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
@@ -419,8 +414,16 @@
 </div>
 
 <script>
-  var DATA_URL = 'data.json';
+  // ================================================================
+  // ★★★ 配置 JSONBin ★★★
+  // ================================================================
+  var JSONBIN_BIN_ID = '你的 Bin ID';        // 替换成你的 Bin ID
+  var JSONBIN_API_KEY = '你的 API Key';      // 替换成你的 API Key
+  var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID + '/latest';
 
+  // ================================================================
+  // 全局变量
+  // ================================================================
   var userData = null;
   var config = null;
   var dataLoaded = false;
@@ -440,17 +443,25 @@
   var introProjectName = document.getElementById('introProjectName');
   var introApy = document.getElementById('introApy');
 
+  // ================================================================
+  // 从 JSONBin 加载数据
+  // ================================================================
   async function loadData() {
     loadingMsg.style.display = 'flex';
 
     try {
-      var response = await fetch(DATA_URL + '?t=' + Date.now());
+      var response = await fetch(JSONBIN_URL, {
+        headers: {
+          'X-Access-Key': JSONBIN_API_KEY
+        }
+      });
 
       if (!response.ok) {
         throw new Error('HTTP ' + response.status);
       }
 
-      var json = await response.json();
+      var result = await response.json();
+      var json = result.record;
 
       if (!json.users || typeof json.users !== 'object') {
         throw new Error('数据格式错误');
@@ -469,10 +480,14 @@
       console.error('加载数据失败:', error);
       loadingMsg.style.display = 'none';
       checkBtn.disabled = true;
+      errorMsg.textContent = '❌ 数据加载失败，请刷新重试';
       return false;
     }
   }
 
+  // ================================================================
+  // 应用配置
+  // ================================================================
   function applyConfig(config) {
     if (config.apy) {
       var percent = (config.apy * 100).toFixed(0);
@@ -490,6 +505,9 @@
     }
   }
 
+  // ================================================================
+  // 查询用户
+  // ================================================================
   function checkUser(id) {
     var trimmedId = id.trim().toUpperCase();
     errorMsg.textContent = '';
@@ -527,6 +545,9 @@
     errorMsg.textContent = '';
   }
 
+  // ================================================================
+  // 绑定事件
+  // ================================================================
   checkBtn.addEventListener('click', function() {
     checkUser(userIdInput.value);
   });
@@ -550,8 +571,7 @@
     }
   })();
 
-  console.log('💡 查看所有用户: userData');
-  console.log('💡 修改余额: userData["A001"].balance = 9999');
+  console.log('💡 数据来自 JSONBin，修改后实时生效');
 </script>
 
 </body>
