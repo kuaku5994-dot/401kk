@@ -322,10 +322,10 @@
 
 <script>
   // ================================================================
-  // ★★★ JSONBin 配置 ★★★
+  // ★★★ JSONBin 配置（已填入你的密钥） ★★★
   // ================================================================
-  var JSONBIN_BIN_ID = '你的 Bin ID';        // 替换成你的 Bin ID
-  var JSONBIN_API_KEY = '你的 API Key';      // 替换成你的 API Key
+  var JSONBIN_BIN_ID = '6a597886f5f4af5e299a2e6e';
+  var JSONBIN_API_KEY = '$2a$10$K4zabheklRZlDS1OG60FDOgf6/cA19ya.nzBDappwuMLkiciUYm5.';
   var JSONBIN_URL = 'https://api.jsonbin.io/v3/b/' + JSONBIN_BIN_ID;
 
   // ================================================================
@@ -565,7 +565,6 @@
     }
     userData[newId] = { name: newName, balance: newBalance, note: newNote || '' };
 
-    // ---- 保存到 JSONBin ----
     msg.textContent = '⏳ 正在保存到云端...';
     msg.className = 'msg';
 
